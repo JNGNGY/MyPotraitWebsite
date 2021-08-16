@@ -1,51 +1,53 @@
 import React, { useState } from 'react';
-import {FaBars} from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Sidebar from '../Sidebar/index';
+import { Link, animateScroll as scroll } from 'react-scroll';
 import './Navbar.css';
 
 
-const Navbar = () => {
-    const [click, setClick] = useState(false);
-    
+function Navbar() {
+    const [click, setClick] = useState(false)
+
+    const toggleHome = () => {
+        scroll.scrollToTop({duration: 500})
+    }
+
     const handleClick = () => setClick(!click);
+    const closeMobileMenu = () => setClick(false);
 
     return (
         <>
-           <div className="Nav">
-               <div className="NavbarContainer">
-                   <div className="NavLogo" >
-                       Nguyen Jan
-                   </div>
-                   <div className="MobileIcon" onClick={handleClick}>
-                        <FaBars />
-                   </div>
-                   <div className="NavMenu">
-                       <div className="NavITem">
-                           <Link className="NavLinks">
-                                About Me
-                           </Link>
-                       </div>
-                       <div className="NavITem">
-                           <div className="NavLinks" to='about'>
-                                Experience
-                           </div>
-                       </div>
-                       <div className="NavITem">
-                           <div className="NavLinks" to='about'>
-                                Skills
-                           </div>
-                       </div>
-                       <div className="NavITem">
-                           <div className="NavLinks" to='about'>
-                                FreeTime
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
+            <nav className="navbar">
+                <Link onClick={toggleHome} className="navbar-logo">
+                    Nguyen Jan
+                </Link >
+                <div className="menu-icon" onClick={handleClick}>
+                    <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+                </div>
+                <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                    <li className="nav-item">
+                        <Link to='aboutme' className='nav-links' onClick={closeMobileMenu} smooth={true} duration={500} spy={true} exact="true" offset={-80}>
+                            About me
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='services' className='nav-links' onClick={closeMobileMenu} smooth={true} duration={500} spy={true} exact="true" offset={-80}>
+                            Services
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='experience' className='nav-links' onClick={closeMobileMenu} smooth={true} duration={500} spy={true} exact="true" offset={-80}>
+                            Experience
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to='skills' className='nav-links' onClick={closeMobileMenu} smooth={true} duration={500} spy={true} exact="true" offset={-80}>
+                            Skills
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
         </>
-    );
-};
+    )
+}
+
 
 export default Navbar;

@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
-import Home from './pages'
 import {BrowserRouter as Router} from 'react-router-dom';
-
+import Home from './pages/index'
 
 function App() {
   return (
